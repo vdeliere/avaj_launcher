@@ -20,7 +20,7 @@ $(BIN_DIR):
 		mkdir -p $@
 
 run:
-		$(J) $(JFLAGS) simulator.Simulator scenarios/1.txt
+		$(J) $(JFLAGS) src.simulator.Simulator scenarios/01.txt
 	
 clean:
 		$(RM) $(BIN_DIR)
