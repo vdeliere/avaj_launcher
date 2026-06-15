@@ -17,7 +17,7 @@ public class WeatherProvider{
     }
 
     public String getCurrentWeather(Coordinates p_coordinates){
-        // a coder
+        long random = (p_coordinates.getLatitude() + p_coordinates.getLongitude() + p_coordinates.getHeight() + System.nanoTime()) % weather.length;
+        return weather[(int)random];
     }
-
 }
