@@ -1,0 +1,4 @@
+eclipse
+openjdk-21.tar.gz
+bin
+bin/*.class
