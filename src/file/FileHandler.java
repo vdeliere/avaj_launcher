@@ -4,6 +4,7 @@ package src.file;
     import java.util.ArrayList;
     import java.util.List;
 
+// Singleton
 public final class FileHandler{
     private static FileHandler instance;
     private List<String> output; 

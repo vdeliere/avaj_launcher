@@ -6,8 +6,13 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
+import java.util.NoSuchElementException;
+
+import src.aircraft.Aircraft;
 import src.exceptions.InvalidFileInformation;
+import java.util.Scanner;
 
 public class Validator {
     private int                 iterations;
@@ -19,6 +24,20 @@ public class Validator {
         private int     longitude;
         private int     latitude;
         private int     height;
+
+        public AircraftInfo(String p_type, String p_name, int p_longitude, int p_latitude, int p_height){
+            this.type = p_type;
+            this.name = p_name;
+            this.longitude = p_longitude;
+            this.latitude = p_latitude;
+            this.height = p_height;
+        }
+
+        private String  getType(){ return type; }
+        private String  getName(){ return name; }
+        private int     getLongitude(){ return longitude; }
+        private int     getLatitude(){ return latitude; }
+        private int     getHeight(){ return height; }
     }
 
     public  Validator(){
@@ -29,9 +48,8 @@ public class Validator {
     public void parseFile(String filename) throws FileNotFoundException, InvalidFileInformation{
         System.out.println("Let's go parsing\n");
         File file = new File(filename);
-        boolean firstline = true;
 
-        if(!file.exists()){
+        if (!file.exists()){
             System.err.println("Error: this file doesn't exist");
             return;
         }
@@ -43,23 +61,51 @@ public class Validator {
             System.err.println("Error: you don't have the read right for this file");
             return;
         }
-        try (BufferedReader br = new BufferedReader(new FileReader(file))){
-            String line;
-            while ((line = br.readLine()) != null){
-                if (firstline){
-                    this.iterations = Integer.parseInt(line.trim());
-                    System.out.println("1st line:" + iterations);
-                    if (iterations < 1)
+
+        try (Scanner scanner = new Scanner(file)){
+            // Handling of the first line
+            if (scanner.hasNextLine()){
+                String firstLine = scanner.nextLine().trim();
+                try {
+                    int val = Integer.parseInt(firstLine);
+                    if (val < 1)
                         throw new InvalidFileInformation("Iteration number has to be a positive integer");
-                    firstline = false;
+                    this.iterations = val;
+                    System.out.println(this.iterations);
+                } catch (NumberFormatException e) {
+                    throw new InvalidFileInformation("The first line is not a valid integer: '"+ firstLine + "'", e);
                 }
-                else{
-                     System.out.println(line);
+            } else {
+                throw new InvalidFileInformation("The file is empty!");
+            }
+            // Main read loop for aircrafts
+            while (scanner.hasNext()) {
+                try {
+                    String  type = scanner.next();
+                    String  name = scanner.next();
+                    int     longitude = scanner.nextInt();
+                    int     latitude = scanner.nextInt();
+                    int     height = scanner.nextInt();
+
+                    // Validation of the coordinates
+                    if (longitude < 0 || latitude < 0 || height < 0)
+                        throw new InvalidFileInformation("Coordinates and height must be positive for aircraft: " + name);
+                    else if (height > 100)
+                        throw new InvalidFileInformation("Height coordinate can't be over 100: " + name);
+
+                    // Add a new entry in AircraftInfo
+                    AircraftInfo aircraft = new AircraftInfo(type, name, longitude, latitude, height);
+                    this.aircraftInfos.add(aircraft);
+                    System.out.println("Added: " + type + " " + name + " (" + longitude + ", " + latitude + ", " + height + ")");
+
+                } catch (InputMismatchException e){
+                    throw new InvalidFileInformation("Format error in file: expected an integer but found text.", e);
+                } catch (NoSuchElementException e){
+                    throw new InvalidFileInformation("File ended unexpectedly. An aircraft definition is incomplete.", e);
                 }
             }
-        } catch (IOException e){
-            System.err.println("Error: " + e.getMessage());
-        }
+            
+        } 
     }
     
 }

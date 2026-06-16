@@ -6,6 +6,7 @@ import src.validator.Validator;
 
 public class Simulator{
     public static void main(String[] args){
+        // Arguments verification
         if (args.length != 1){
             System.err.print("Usage: java Simulator <file_name.txt>");
             System.exit(1);
@@ -18,6 +19,7 @@ public class Simulator{
             System.exit(1);
         }
 
+        // Launch of the parsing
         Validator validator = new Validator();
         try {
             validator.parseFile(filename);
@@ -25,5 +27,8 @@ public class Simulator{
             System.err.println("File not found: " + filename);
             System.exit(1);
         }
+
+        // Creation of the Aircrafts
+        
     }
 }
