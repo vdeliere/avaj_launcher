@@ -7,8 +7,11 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import src.exceptions.InvalidFileInformation;
 
 public class Validator {
+    private int                 iterations;
+    private List<AircraftInfo>  aircraftInfos;
 
     public class AircraftInfo{
         private String  type;
@@ -18,8 +21,13 @@ public class Validator {
         private int     height;
     }
 
-    public void parseFile(String filename) throws FileNotFoundException{
-        System.out.print("Let's go parsing\n");
+    public  Validator(){
+        iterations = -1;
+        aircraftInfos = new ArrayList<AircraftInfo>();
+    }
+
+    public void parseFile(String filename) throws FileNotFoundException, InvalidFileInformation{
+        System.out.println("Let's go parsing\n");
         File file = new File(filename);
         boolean firstline = true;
 
@@ -38,8 +46,16 @@ public class Validator {
         try (BufferedReader br = new BufferedReader(new FileReader(file))){
             String line;
             while ((line = br.readLine()) != null){
-                    System.out.println(line);
-                    
+                if (firstline){
+                    this.iterations = Integer.parseInt(line.trim());
+                    System.out.println("1st line:" + iterations);
+                    if (iterations < 1)
+                        throw new InvalidFileInformation("Iteration number has to be a positive integer");
+                    firstline = false;
+                }
+                else{
+                     System.out.println(line);
+                }
             }
         } catch (IOException e){
             System.err.println("Error: " + e.getMessage());
