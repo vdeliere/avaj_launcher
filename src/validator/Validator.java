@@ -45,6 +45,10 @@ public class Validator {
         return this.aircraftInfos;
     }
 
+    public int getIterations(){
+        return this.iterations;
+    }
+
     public void parseFile(String filename) throws FileNotFoundException, InvalidFileInformation{
         File file = new File(filename);
 

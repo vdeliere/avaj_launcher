@@ -1,6 +1,7 @@
 package src.aircraft;
 
 import src.coordinates.Coordinates;
+import src.weather.WeatherProvider;
 
 public class Helicopter extends Aircraft{
 
@@ -9,6 +10,32 @@ public class Helicopter extends Aircraft{
     }
 
     public void updateConditions(){
-        //a coder
+        String   weather = WeatherProvider.getInstance().getCurrentWeather(coordinates);
+        
+        int      lon = this.coordinates.getLongitude();
+        int      lat = this.coordinates.getLatitude();
+        int      height = this.coordinates.getHeight();
+        
+        switch (weather) {
+            case "SUN":
+                lon += 10;
+                height += 2;
+                break;
+            case "RAIN":
+                lon += 5;
+                break;
+            case "FOG":
+                lon += 1;
+                break;
+            case "SNOW":
+                height -= 12;
+                break;
+        }
+        if (height > 100)
+            height = 100;
+        this.coordinates = new Coordinates(lon, lat, height);
+        if (this.coordinates.getHeight() < 0){
+            this.weatherTower.unregister(this);
+        }
     }
 }

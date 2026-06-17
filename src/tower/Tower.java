@@ -19,6 +19,8 @@ public class Tower{
     }
 
     protected void conditionChanged(){
-        // a coder
+        List<Flyable> copy = new ArrayList<>(observers);
+        for(Flyable observer : copy)
+            observer.updateConditions();
     }
 }

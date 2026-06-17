@@ -58,6 +58,14 @@ public class Simulator{
             // We register the aircraft to the weather tower
             newAircraft.registerTower(weatherTower);
         }
+       
+
+        // THE SIMULATION
+        for(int i = 0; i < validator.getIterations(); i++){
+            weatherTower.conditionChanged();
+        }
+
+        // Writing of th simulation file
         try{
             FileHandler.getInstance().writeOutputToFile();
         } catch (IOException e){
