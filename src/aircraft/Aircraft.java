@@ -12,5 +12,10 @@ public class Aircraft extends Flyable{
         this.name = p_name;
         this.coordinates = p_coordinate;
     }
-    
+    // Override de Flyable.updateCondition()
+    public void updateConditions(){}
+    public String getAircraftIdentity(){
+        String type = this.getClass().getSimpleName();
+        return type + "#" + this.name + "(" + this.id + ")";
+    }
 }

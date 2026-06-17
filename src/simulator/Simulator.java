@@ -1,8 +1,14 @@
 package src.simulator;
 
 import java.io.FileNotFoundException;
-
+import java.io.IOException;
+import java.util.List;
 import src.validator.Validator;
+import src.aircraft.AircraftFactory;
+import src.aircraft.Flyable;
+import src.tower.WeatherTower;
+import src.coordinates.Coordinates;
+import src.file.FileHandler;
 
 public class Simulator{
     public static void main(String[] args){
@@ -28,7 +34,35 @@ public class Simulator{
             System.exit(1);
         }
 
+        // Creation of the weatherTower
+        WeatherTower weatherTower = new WeatherTower();
+
+        // Recuperation of the parsed aircrafts list
+        List<Validator.AircraftInfo> infos = validator.getAircraftInfos();
+
+        // Recuperation of our singleton AircraftFactory
+        AircraftFactory factory = AircraftFactory.getInstance();
+
         // Creation of the Aircrafts
-        
+        for (Validator.AircraftInfo info : infos){
+            Coordinates coords = new Coordinates(
+                info.getLongitude(),
+                info.getLatitude(),
+                info.getHeight()
+            );
+            Flyable newAircraft = factory.newAircraft(
+                info.getType(),
+                info.getName(),
+                coords
+            );
+            // We register the aircraft to the weather tower
+            newAircraft.registerTower(weatherTower);
+        }
+        try{
+            FileHandler.getInstance().writeOutputToFile();
+        } catch (IOException e){
+            System.err.println("Writing error of simulation.txt");
+            System.exit(1);
+        }
     }
 }

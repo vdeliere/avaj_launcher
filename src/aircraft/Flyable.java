@@ -2,15 +2,18 @@ package src.aircraft;
 
 import src.tower.WeatherTower;
 
-public class Flyable{
-    protected WeatherTower p_tower;
+public abstract class Flyable{
+    protected WeatherTower weatherTower;
 
-    public void updateConditions(){
+    public Flyable(){}
 
-    }
+    public abstract void updateConditions();
+
+    public abstract String getAircraftIdentity();
 
     public void registerTower(WeatherTower p_tower){
-
+        this.weatherTower = p_tower;
+        this.weatherTower.register(this);
     }
 }
 

@@ -1,16 +1,12 @@
 package src.validator;
 
 import java.io.File;
-import java.io.BufferedReader;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import src.aircraft.Aircraft;
 import src.exceptions.InvalidFileInformation;
 import java.util.Scanner;
 
@@ -33,11 +29,11 @@ public class Validator {
             this.height = p_height;
         }
 
-        private String  getType(){ return type; }
-        private String  getName(){ return name; }
-        private int     getLongitude(){ return longitude; }
-        private int     getLatitude(){ return latitude; }
-        private int     getHeight(){ return height; }
+        public String  getType(){ return type; }
+        public String  getName(){ return name; }
+        public int     getLongitude(){ return longitude; }
+        public int     getLatitude(){ return latitude; }
+        public int     getHeight(){ return height; }
     }
 
     public  Validator(){
@@ -45,8 +41,11 @@ public class Validator {
         aircraftInfos = new ArrayList<AircraftInfo>();
     }
 
+    public List<AircraftInfo> getAircraftInfos(){
+        return this.aircraftInfos;
+    }
+
     public void parseFile(String filename) throws FileNotFoundException, InvalidFileInformation{
-        System.out.println("Let's go parsing\n");
         File file = new File(filename);
 
         if (!file.exists()){
