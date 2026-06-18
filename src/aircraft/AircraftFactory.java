@@ -9,7 +9,7 @@ public class AircraftFactory{
     private static long             idCounter;
 
     private AircraftFactory(){
-        idCounter = 0;
+        idCounter = 1;
     }
 
     public static AircraftFactory getInstance(){

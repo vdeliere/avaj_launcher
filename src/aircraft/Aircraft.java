@@ -1,6 +1,7 @@
 package src.aircraft;
 
 import src.coordinates.Coordinates;
+import src.file.FileHandler;
 
 public class Aircraft extends Flyable{
     protected long          id;
@@ -17,5 +18,9 @@ public class Aircraft extends Flyable{
     public String getAircraftIdentity(){
         String type = this.getClass().getSimpleName();
         return type + "#" + this.name + "(" + this.id + ")";
+    }
+    public void landing(){
+        FileHandler.getInstance().addToOutput(this.getAircraftIdentity() + "landing");
+        this.weatherTower.unregister(this);
     }
 }
