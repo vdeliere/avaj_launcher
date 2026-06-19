@@ -1,11 +1,11 @@
-#Avaj Launcher
-##Overview
+# Avaj Launcher
+## Overview
 
 Avaj Launcher is a Java simulation project focused on Object-Oriented Programming principles and design patterns. The program simulates different types of aircraft reacting to changing weather conditions provided by a weather tower.
 
 Aircraft register themselves to the weather tower and receive weather updates throughout the simulation until they land.
 
-##Features
+## Features
 -Weather-driven aircraft simulation
 -Multiple aircraft types:
     -Baloon
@@ -19,7 +19,8 @@ Aircraft register themselves to the weather tower and receive weather updates th
     -Factory
     -Observer
 
-##Project Structure
+## Project Structure
+
 src/
 ├── aircraft/
 │   ├── Aircraft.java
@@ -51,7 +52,7 @@ src/
 └── weather/
     └── WeatherProvider.java
 
-##Compilation
+## Compilation
 
 From the project root directory:
 
@@ -62,19 +63,19 @@ Or:
 
 javac $(find src -name "*.java")
 
-##Usage
+## Usage
 
 Run the simulator with a scenario file:
 
 java src.simulator.Simulator scenario.txt
 
-###Arguments
+### Arguments
 
 The program expects exactly one argument:
 
 <scenario_file>.txt
 
-##Scenario File Format
+## Scenario File Format
 
 The first line specifies the number of weather simulations to execute.
 
@@ -82,13 +83,15 @@ Each following line defines an aircraft:
 
 TYPE NAME LONGITUDE LATITUDE HEIGHT
 
-###Example
+### Example
+
 5
 Baloon B1 2 3 20
 JetPlane J1 23 44 80
 Helicopter H1 10 20 30
 
-###Parameters
+### Parameters
+
 Field	Description
 TYPE	Baloon, JetPlane, or Helicopter
 NAME	Aircraft name
@@ -96,7 +99,8 @@ LONGITUDE	Positive integer
 LATITUDE	Positive integer
 HEIGHT	Integer between 0 and 100
 
-##Simulation Flow
+## Simulation Flow
+
 The scenario file is validated and parsed.
 A WeatherTower is created.
 Aircraft are instantiated through the AircraftFactory.
@@ -106,7 +110,7 @@ Aircraft modify their coordinates according to the current weather.
 Aircraft landing events trigger automatic deregistration.
 All events are written to simulation.txt.
 
-##Weather Conditions
+## Weather Conditions
 
 The WeatherProvider can return one of four weather conditions:
 
@@ -117,39 +121,42 @@ SNOW
 
 Each aircraft reacts differently.
 
-###Baloon
+### Baloon
+
 Weather	Effect
 SUN	Longitude +2, Height +5
 RAIN	Height -5
 FOG	Height -3
 SNOW	Height -15
 
-###Helicopter
+### Helicopter
+
 Weather	Effect
 SUN	Longitude +10, Height +2
 RAIN	Longitude +5
 FOG	Longitude +1
 SNOW	Height -12
 
-###JetPlane
+### JetPlane
+
 Weather	Effect
 SUN	Latitude +10, Height +2
 RAIN	Latitude +5
 FOG	Latitude +1
 SNOW	Height -7
 
-###Height Limit
+### Height Limit
 
 Aircraft altitude is capped at: 100
 
-##Landing
+## Landing
 
 When an aircraft's height becomes lower than zero:
 -The aircraft lands.
 -It unregisters from the weather tower.
 -A landing message is added to the simulation report.
 
-##Output
+## Output
 
 At the end of the simulation, a file named simulation.txt is generated.
 
@@ -159,7 +166,7 @@ The file contains:
 -Aircraft weather reactions
 -Landing notifications
 
-##Error Handling
+## Error Handling
 
 The application validates:
 
@@ -175,9 +182,9 @@ Custom exceptions are handled through:
 
 -InvalidFileInformation
 
-##Design Patterns
+## Design Patterns
 
-###Singleton
+### Singleton
 
 Used by:
 - WeatherProvider
@@ -186,7 +193,7 @@ Used by:
 
 Ensures only one instance exists during the application's lifecycle.
 
-###Factory
+### Factory
 
 Implemented by:
 
@@ -194,7 +201,7 @@ AircraftFactory
 
 Responsible for creating aircraft objects based on their type.
 
-###Observer
+### Observer
 
 Participants:
 
@@ -203,7 +210,8 @@ Observers: Flyable aircraft
 
 The weather tower notifies all registered aircraft whenever weather conditions change.
 
-##Output Example
+## Output Example
+
 Tower says: Baloon#B1(1) registered to weather tower.
 Baloon#B1(1): Let's enjoy the good weather and take some pics.
 Baloon#B1(1): Damn you rain! You messed up my balloon.
