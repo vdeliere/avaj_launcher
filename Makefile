@@ -52,6 +52,9 @@ $(BIN_DIR):
 
 run:
 		$(J) $(JFLAGS) src.simulator.Simulator scenarios/02.txt
+
+fclean: clean
+		$(RM) simulation.txt
 	
 clean:
 		$(RM) $(BIN_DIR)

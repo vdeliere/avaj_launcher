@@ -20,7 +20,7 @@ public class Aircraft extends Flyable{
         return type + "#" + this.name + "(" + this.id + ")";
     }
     public void landing(){
-        FileHandler.getInstance().addToOutput(this.getAircraftIdentity() + "landing");
+        FileHandler.getInstance().addToOutput(this.getAircraftIdentity() + " landing");
         this.weatherTower.unregister(this);
     }
 }
