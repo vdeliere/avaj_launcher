@@ -11,6 +11,7 @@ JC = javac
 JCFLAGS = -d $(BIN_DIR)
 
 RM = rm -rf
+
 all: banner $(NAME)
 
 banner:
@@ -59,6 +60,6 @@ fclean: clean
 clean:
 		$(RM) $(BIN_DIR)
 
-re: clean all
+re: fclean all
 
-.PHONY: all clean re
+.PHONY: all clean fclean re

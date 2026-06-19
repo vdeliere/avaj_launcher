@@ -90,27 +90,27 @@ Each aircraft reacts differently.
 
 ### Baloon
 
-Weather	Effect
-SUN	Longitude +2, Height +5
-RAIN	Height -5
-FOG	Height -3
-SNOW	Height -15
+Weather     Effect
+SUN         Longitude +2, Height +5
+RAIN        Height -5
+FOG         Height -3
+SNOW        Height -15
 
 ### Helicopter
 
-Weather	Effect
-SUN	Longitude +10, Height +2
-RAIN	Longitude +5
-FOG	Longitude +1
-SNOW	Height -12
+Weather     Effect
+SUN         Longitude +10, Height +2
+RAIN        Longitude +5
+FOG         Longitude +1
+SNOW        Height -12
 
 ### JetPlane
 
-Weather	Effect
-SUN	Latitude +10, Height +2
-RAIN	Latitude +5
-FOG	Latitude +1
-SNOW	Height -7
+Weather     Effect
+SUN         Latitude +10, Height +2
+RAIN        Latitude +5
+FOG         Latitude +1
+SNOW        Height -7
 
 ### Height Limit
 
@@ -145,9 +145,7 @@ The application validates:
 -Height range (0–100)
 -Supported aircraft types
 
-Custom exceptions are handled through:
-
--InvalidFileInformation
+Custom exceptions are handled through InvalidFileInformation.
 
 ## Design Patterns
 
