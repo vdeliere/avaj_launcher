@@ -85,7 +85,7 @@ public class Validator {
 
                     // Validation of the coordinates
                     if (longitude < 0 || latitude < 0 || height < 0)
-                        throw new InvalidFileInformation("Coordinates and height must be positive for aircraft: " + name);
+                        throw new InvalidFileInformation("Coordinates must be positive for aircraft: " + name);
                     else if (height > 100)
                         throw new InvalidFileInformation("Height coordinate can't be over 100: " + name);
 
@@ -94,7 +94,7 @@ public class Validator {
                     this.aircraftInfos.add(aircraft);
 
                 } catch (InputMismatchException e){
-                    throw new InvalidFileInformation("Format error in file: expected an integer but found text.", e);
+                    throw new InvalidFileInformation("bad input.", e);
                 } catch (NoSuchElementException e){
                     throw new InvalidFileInformation("File ended unexpectedly. An aircraft definition is incomplete.", e);
                 }

@@ -27,7 +27,7 @@ public class AircraftFactory{
             case "Baloon":
                 return new Baloon(idCounter++, p_name, p_coordinates);
             default:
-                throw new InvalidFileInformation("The following aircraft type is not sell by the factory:" + p_type);
+                throw new InvalidFileInformation("The following aircraft type is not sell by the factory: " + p_type);
         }
     }
 }
