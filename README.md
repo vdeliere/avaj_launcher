@@ -19,39 +19,6 @@ Aircraft register themselves to the weather tower and receive weather updates th
     -Factory
     -Observer
 
-## Project Structure
-
-src/
-├── aircraft/
-│   ├── Aircraft.java
-│   ├── AircraftFactory.java
-│   ├── Baloon.java
-│   ├── Flyable.java
-│   ├── Helicopter.java
-│   └── JetPlane.java
-│
-├── coordinates/
-│   └── Coordinates.java
-│
-├── exceptions/
-│   └── InvalidFileInformation.java
-│
-├── file/
-│   └── FileHandler.java
-│
-├── simulator/
-│   └── Simulator.java
-│
-├── tower/
-│   ├── Tower.java
-│   └── WeatherTower.java
-│
-├── validator/
-│   └── Validator.java
-│
-└── weather/
-    └── WeatherProvider.java
-
 ## Compilation
 
 From the project root directory:
