@@ -4,3 +4,4 @@ bin
 bin/*.class
 *.class
 sources.txt
+simulation.txt
