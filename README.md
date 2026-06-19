@@ -1,11 +1,13 @@
 # Avaj Launcher
 ## Overview
 
-Avaj Launcher is a Java simulation project focused on Object-Oriented Programming principles and design patterns. The program simulates different types of aircraft reacting to changing weather conditions provided by a weather tower.
+Avaj Launcher is a Java simulation project focused on Object-Oriented Programming principles and design patterns.
+The program simulates different types of aircraft reacting to changing weather conditions provided by a weather tower.
 
 Aircraft register themselves to the weather tower and receive weather updates throughout the simulation until they land.
 
 ## Features
+
 -Weather-driven aircraft simulation
 -Multiple aircraft types:
     -Baloon
@@ -51,7 +53,6 @@ Each following line defines an aircraft:
 TYPE NAME LONGITUDE LATITUDE HEIGHT
 
 ### Example
-
 5
 Baloon B1 2 3 20
 JetPlane J1 23 44 80

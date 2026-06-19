@@ -8,13 +8,14 @@ import src.aircraft.AircraftFactory;
 import src.aircraft.Flyable;
 import src.tower.WeatherTower;
 import src.coordinates.Coordinates;
+import src.exceptions.InvalidFileInformation;
 import src.file.FileHandler;
 
 public class Simulator{
     public static void main(String[] args){
         // Arguments verification
         if (args.length != 1){
-            System.err.print("Usage: java Simulator <file_name.txt>");
+            System.err.print("Usage: java src.simulator.Simulator <file_name.txt>");
             System.exit(1);
         }
 
@@ -32,6 +33,9 @@ public class Simulator{
         } catch (FileNotFoundException e) {
             System.err.println("File not found: " + filename);
             System.exit(1);
+        } catch (InvalidFileInformation e){
+            System.err.println("Scenario Error: " + e.getMessage());
+            System.exit(1);
         }
 
         // Creation of the weatherTower
@@ -44,24 +48,28 @@ public class Simulator{
         AircraftFactory factory = AircraftFactory.getInstance();
 
         // Creation of the Aircrafts
-        for (Validator.AircraftInfo info : infos){
-            Coordinates coords = new Coordinates(
-                info.getLongitude(),
-                info.getLatitude(),
-                info.getHeight()
-            );
-            Flyable newAircraft = factory.newAircraft(
-                info.getType(),
-                info.getName(),
-                coords
-            );
-            // We register the aircraft to the weather tower
-            newAircraft.registerTower(weatherTower);
+        try{
+            for (Validator.AircraftInfo info : infos){
+                Coordinates coords = new Coordinates(
+                    info.getLongitude(),
+                    info.getLatitude(),
+                    info.getHeight()
+                );
+                Flyable newAircraft = factory.newAircraft(
+                    info.getType(),
+                    info.getName(),
+                    coords
+                );
+                // We register the aircraft to the weather tower
+                newAircraft.registerTower(weatherTower);
+            }
+        } catch (InvalidFileInformation e){
+            System.err.println("Factory Error: " + e.getMessage());
+            System.exit(1);
         }
-       
 
         // THE SIMULATION
-        for(int i = 0; i < validator.getIterations(); i++){
+        for (int i = 0; i < validator.getIterations(); i++){
             weatherTower.conditionChanged();
         }
 
@@ -71,6 +79,8 @@ public class Simulator{
         } catch (IOException e){
             System.err.println("Writing error of simulation.txt");
             System.exit(1);
+        } catch (InvalidFileInformation e){
+            System.err.println(e.getMessage());
         }
     }
 }

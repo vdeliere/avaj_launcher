@@ -3,3 +3,4 @@ openjdk-21.tar.gz
 bin
 bin/*.class
 *.class
+sources.txt
